@@ -1,0 +1,413 @@
+<!DOCTYPE html><html><head>
+    <link rel="stylesheet" type="text/css" href="css/zenci.css">
+    <meta charset="UTF-8">
+    <title>J4C Sayaç</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    
+    <script type="text/javascript" src="js/analytics.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">J4C</div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+          <li><a class="active" href="İndex.html">Ana Sayfa</a></li>
+          <li><a href="#">Sıralamalar</a></li>
+          <li><a href="Sayaç.html">Sayaç</a></li>
+          <li><a href="Çözümler.html">Çözümler</a></li>
+        
+        </ul>
+      </nav>
+    
+      <br>
+
+    <img id="settingsIcon" src="images/settings_gray.png" width="30" height="30">
+    
+    <div id="timeContainer">
+        <div id="tabsDiv">
+            <table id="eventsTable" class="tabs">
+                <tbody id="eventsTableBody">
+                    <tr id="eventsParent">
+                        <td id="2x2">2x2</td>
+                        <td id="3x3" class="active">3x3</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="scrambleDiv">
+            <span id="scramble"></span>
+        </div>
+        
+        <div id="timeDiv">
+            <span id="time">
+                0.000
+            </span>
+        </div>
+        
+    </div>
+    
+    <div id="bottomContentContainer">
+        
+        <div id="innerBottomContent">
+            
+            <div id="timesDiv">
+                <div id="innerTimesDiv">
+                    <table id="timesTable">
+                        <tbody id="timesTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="statsDiv">
+                <table id="statsTable">
+                    <tbody id="statsTableBody">
+
+                        <tr id="ao5">
+                            <td class="label">Son 5 Çözümün Ortalaması:</td>
+                            <td class="value">-</td>
+                        </tr>
+
+                        <tr class="gap"></tr>
+
+                        <tr id="ao12">
+                            <td class="label">Son 12 Çözümün Ortalaması:</td>
+                            <td class="value">-</td>
+                        </tr>
+                        
+                        <tr class="gap"></tr>
+                        
+                        <tr id="sessionAverage">
+                            <td class="label">Session Ortalaması:</td>
+                            <td class="value special">-</td>
+                        </tr>
+
+                        <tr class="gap"></tr>
+
+                        <tr id="sessionMean">
+                            <td class="label">Session mean:</td>
+                            <td class="value special">-</td>
+                        </tr>
+                        
+                        <tr class="gap"></tr>
+                        
+                        <tr id="best">
+                            <td class="label">En İyi:</td>
+                            <td class="value">-</td>
+                        </tr>
+
+                        <tr class="gap"></tr>
+
+                        <tr id="worst">
+                            <td class="label">En Kötü:</td>
+                            <td class="value">-</td>
+                        </tr>
+                        
+                        <tr class="gap"></tr>
+                        
+                        <tr id="bao5">
+                            <td class="label">Son 5 Çözümün En İyi Ortalaması:</td>
+                            <td class="value">-</td>
+                        </tr>
+
+                        <tr class="gap"></tr>
+
+
+                        <tr id="bao12">
+                            <td class="label">Son 12 Çözümün En İyi Ortalaması:</td>
+                            <td class="value">-</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+                    
+    
+    </div>
+    
+    <div class="modalWrapper" id="addManuallyWrapper">
+        <div class="modal" id="addManuallyModal">
+            
+            <span class="closeModal">X</span>
+            <span id="addTimesTitle">Add Times</span>
+            <table class="tabs" id="addTimesTabs">
+                <tbody>
+                    <tr>
+                        <td id="addOne" class="active">One at a Time</td>
+                        <td id="addMany">Mass Import</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div id="addOneDiv">
+                <p>To add one time, enter the time with the format 
+                    hh:mm:ss.xxx.  The hours and minutes are optional,
+                    as are the decimal places.  Then, enter the scramble
+                    in the larger adjacent text field.  Finally, click
+                    "Add Time" to add it to the list!</p>
+                <br>
+                <input id="timeInput" type="text" placeholder="Time" maxlength="12">
+                
+                <input id="scrambleInput" type="text" maxlength="400" placeholder="Scramble">
+                
+                <p id="addTimeSuccess">Error: invalid time</p>
+                
+                <button id="addTimeButton">ADD TIME</button>
+            </div>
+            
+            <div id="addManyDiv">
+                <p>To add lots of solves at once, input each time with 
+                    the format hh:mm:ss.xxx, separated by a comma ( , ). 
+                    Once again, the hours and minutes are optional, as 
+                    are the decimal places.Then, click "Add Times".  
+                    Currently, scrambles are not supported for adding 
+                    many times at once.</p>
+                
+                <textarea id="addTimesTextarea"></textarea>
+                <br>
+                <p id="addTimesSuccess"></p>
+                
+                <button id="addTimesButton">ADD TIMES</button>
+            </div>
+            
+            
+        </div>
+    </div>
+    
+    <div class="modalWrapper" id="exportWrapper">
+        <div class="modal" id="exportModal">
+            
+            <span class="closeModal">X</span>
+            
+            <span id="exportTitle">Export Times</span>
+            
+            <p>To export times, you can either 
+                <a id="exportDownload">download a text file</a>
+            or copy and paste the string below. Be sure to save
+            it somewhere so you can import it later!</p>
+            
+            <textarea spellcheck="false" id="exportTextarea" class="ie" value="" placeholder="No times yet. Go solve!"></textarea>
+            
+        </div>
+    </div>
+    
+    <div class="modalWrapper" id="importWrapper">
+        <div class="modal" id="importModal">
+            <span class="closeModal">X</span>
+            
+            <span id="importTitle">Import Times</span>
+            
+            <p>To import times, paste the string you got when you
+            exported your times in the area below, then click import!</p>
+            <textarea spellcheck="false" id="importTextarea" class="ie" value="" placeholder="Paste the string here!"></textarea>
+            
+            <br>
+            <p id="importError">Invalid import string.</p>
+            
+            <span id="preserveLabel">Preserve current times: </span>
+            
+            <label class="switch" id="preserveToggle">
+                <input type="checkbox" id="preserveInput" checked="false">
+                <span class="slider"></span>
+            </label>
+            
+            <button id="importButton">IMPORT</button>
+            
+        </div>
+    </div>
+    
+    <div class="modalWrapper" id="avgInfoWrapper">
+        <div class="modal" id="avgInfo">
+            
+            <span class="closeModal">X</span>
+            
+            <span id="avgInfoValue">10.313</span>
+            <br><br>
+            
+            <span id="avgTimesList">11.141, 9.052, (8.933), 10.745, (12.292)</span>
+            <br><br>
+            
+            <span id="timeIndexes">(Times 3 to 7)</span>
+            
+        </div>
+    </div>
+    
+    <div class="modalWrapper" id="timeInfoWrapper">
+        <div class="modal" id="timeInfo">
+            
+            <span class="closeModal">X</span>
+            
+            <span id="timeInfoValue">7.74</span>
+            <br>
+            
+            <span id="timeInfoMilliseconds">7743 milliseconds</span>
+            <span id="timeInfoIndex">(Time 0)</span>
+            
+            <br><br><br><span id="timeInfoScrambleLabel">Scramble:</span><br><br>
+            <span id="timeInfoScramble">Unknown Scramble</span>
+        </div>
+    </div>
+    
+    <div class="modalWrapper" id="settingsWrapper">
+        <div class="modal" id="settings">
+            
+            <h1>Timer Settings</h1>
+            
+            <table id="settingsTabsTable" class="tabs">
+                <tbody id="settingsTabsBody">
+                    <tr id="settingsTabs">
+                        <td id="timerSettings" class="active">Timer</td>
+                        <td id="visualSettings">Visual</td>
+                        <td id="eventSettings">Event</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div id="timerSettingsWrapper">
+            
+                <div id="inspectionSettings">
+
+                    <span class="major">Inspection time:</span>
+                    <label class="switch" id="inspectionToggle">
+                        <input type="checkbox" id="inspectionTimeInput">
+                        <span class="slider"></span>
+                    </label>
+
+                    <input id="inspectionSeconds" type="text" placeholder="Length" value="15">
+                    <span class="minor">seconds</span>
+                </div><br>
+
+                
+                
+                <div id="holdDelaySettings">
+
+                    <span class="major">Hold delay:</span>
+                    <label class="switch" id="holdDelayToggle">
+                        <input type="checkbox" id="holdDelayInput" checked="true">
+                        <span class="slider"></span>
+                    </label>
+
+                    <input id="holdDelaySeconds" type="text" placeholder="Length" value="0.55">
+                    <span class="minor">seconds</span>
+                </div>
+
+                
+                
+                <div id="hideTimerSettings">
+
+                    <span class="major">Hide running timer:</span>
+                    <label class="switch" id="hideTimerToggle">
+                        <input type="checkbox" id="hideTimerInput">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <br><br>
+
+
+
+                <div id="digitsSettings">
+
+                    <span class="major">Decimal places:</span>
+
+                    <div id="digitsButtonsWrapper">
+                        <button id="digits2" class="digit">2</button>
+                        <button id="digits3" class="digit selected">3</button>
+                    </div>
+
+                </div>
+
+                <br><br><br>
+            
+            </div>
+            
+            
+            
+            <div id="visualSettingsWrapper">
+                <div id="timerFontDiv">
+                    
+                    <p id="fontLabel">Timer Font: </p>
+                    
+                    <button class="font" id="font1">FONT 1</button>
+                    <button class="font" id="font2">FONT 2</button>
+                    <button class="font" id="font3">FONT 3</button>
+                    <button class="font last" id="font4">FONT 4</button>
+                    
+                    <p id="displayFont">
+                        123:45:67.890
+                    </p>
+                    
+                </div>
+            </div>
+            
+            
+            
+            <div id="eventSettingsWrapper">
+                <div id="clearTimes">
+                    <button id="clearTimesButton">CLEAR TIMES</button>
+                </div>
+                <div id="clearTimesConfirm">
+                    
+                    <p>Are you sure you want to clear 
+                        <span id="confirmTimeCount">4</span> 
+                        times from the current event
+                        (<span id="confirmEventName">3x3</span>)?</p>
+                    
+                    <button id="clearConfirmButton">YES</button>
+                    <button id="clearCancelButton">NO</button>
+                </div>
+            </div>
+            
+            <button id="settingsSave">SAVE</button>
+        </div>
+    </div>
+    
+    
+    <!-- Scramble library, https://github.com/cubing/jsss -->
+    <script type="text/javascript" src="js/scramble_222.js"></script>
+    <script type="text/javascript" src="js/scramble_333.js"></script>
+    <script type="text/javascript" src="js/scramble_NNN.js"></script>
+    <script type="text/javascript" src="js/scramble_minx.js"></script>
+    <script type="text/javascript" src="js/scramble_pyram.js"></script>
+    <script type="text/javascript" src="js/scramble_sq1.js"></script>
+    
+    <!-- Putting them all together myself, for my needs -->
+    <script type="text/javascript" src="js/scramble.js"></script>
+    
+    <!-- Website- and timer-specific js files (I did these! ^.^) -->
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+    <script type="text/javascript" src="js/times.js"></script>
+    <script type="text/javascript" src="js/events.js"></script>
+    <script type="text/javascript" src="js/save.js"></script>
+    <script type="text/javascript" src="js/add-manually.js"></script>
+
+    <script type="text/javascript" src="js/ui.js"></script>
+
+    
+    <footer>
+        <p>.</p>
+  
+        <div class="icons">
+  
+                <a href="#"><i class="fa-brands fa-discord "></i></a>
+  
+             </div>
+  
+             <div class="footerbottom">
+                <p>Copyright &copy;2024;Designed by J4C crew ! </p>
+             </div>
+    </footer>
+  
+
+
+</body>
+
+</html>
